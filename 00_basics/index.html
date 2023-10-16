@@ -1,0 +1,2173 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Workshop teaching researchers core skills for conducting open science.">
+      
+      
+        <meta name="author" content="CyVerse Science Team">
+      
+      
+        <link rel="canonical" href="https://foss.cyverse.org/00_basics/">
+      
+      
+        <link rel="prev" href="../glossary/">
+      
+      
+        <link rel="next" href="../01_intro_open_sci/">
+      
+      
+      <link rel="icon" href="../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+    
+    
+      
+        <title>0. The Shell and Git - CyVerse Foundational Open Science Skills 2023</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.35e1ed30.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRegular:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Regular"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","UA-72224033-6"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","UA-72224033-6",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=UA-72224033-6",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-unix-shell-git-github-and-llms-an-introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="CyVerse Foundational Open Science Skills 2023" class="md-header__button md-logo" aria-label="CyVerse Foundational Open Science Skills 2023" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 22-3.86-1.55c.7-1.53 1.2-3.11 1.51-4.72L20 22M7.86 20.45 4 22l2.35-6.27c.31 1.61.81 3.19 1.51 4.72M12 2s5 2 5 10c0 3.1-.75 5.75-1.67 7.83A2 2 0 0 1 13.5 21h-3a2 2 0 0 1-1.83-1.17C7.76 17.75 7 15.1 7 12c0-8 5-10 5-10m0 10c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CyVerse Foundational Open Science Skills 2023
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              0. The Shell and Git
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/CyVerse-learning-materials/foss" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CyVerse-learning-materials/foss
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href=".." class="md-tabs__link">
+          
+  
+    
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+    
+  
+  Lessons
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../final_project/overview/" class="md-tabs__link">
+          
+  
+    
+  
+  Capstone Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="CyVerse Foundational Open Science Skills 2023" class="md-nav__button md-logo" aria-label="CyVerse Foundational Open Science Skills 2023" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 22-3.86-1.55c.7-1.53 1.2-3.11 1.51-4.72L20 22M7.86 20.45 4 22l2.35-6.27c.31 1.61.81 3.19 1.51 4.72M12 2s5 2 5 10c0 3.1-.75 5.75-1.67 7.83A2 2 0 0 1 13.5 21h-3a2 2 0 0 1-1.83-1.17C7.76 17.75 7 15.1 7 12c0-8 5-10 5-10m0 10c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2Z"/></svg>
+
+    </a>
+    CyVerse Foundational Open Science Skills 2023
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/CyVerse-learning-materials/foss" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CyVerse-learning-materials/foss
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href=".." class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Home
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Before FOSS Starts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schedule/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Schedule
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../code_of_conduct/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Code of Conduct
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary & Acronyms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Lessons
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lessons
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    0. The Shell and Git
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    0. The Shell and Git
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-unix-shell" class="md-nav__link">
+    The Unix Shell
+  </a>
+  
+    <nav class="md-nav" aria-label="The Unix Shell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cli-vs-terminal-vs-shell" class="md-nav__link">
+    CLI vs Terminal vs Shell
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#things-to-know-about-commands" class="md-nav__link">
+    Things-to-Know About Commands
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#introductory-shell-commands" class="md-nav__link">
+    Introductory Shell Commands
+  </a>
+  
+    <nav class="md-nav" aria-label="Introductory Shell Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#navigation" class="md-nav__link">
+    Navigation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#working-with-files-and-directories" class="md-nav__link">
+    Working with Files and Directories
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#introductory-remarks" class="md-nav__link">
+    Introductory Remarks
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-and-github" class="md-nav__link">
+    Git and Github
+  </a>
+  
+    <nav class="md-nav" aria-label="Git and Github">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introducing-github" class="md-nav__link">
+    Introducing GitHub
+  </a>
+  
+    <nav class="md-nav" aria-label="Introducing GitHub">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#repositories" class="md-nav__link">
+    Repositories
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-and-modifying-code" class="md-nav__link">
+    Adding and Modifying Code
+  </a>
+  
+    <nav class="md-nav" aria-label="Adding and Modifying Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-code-through-the-github-web-page" class="md-nav__link">
+    Adding Code through the GitHub web page
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-code-locally" class="md-nav__link">
+    Adding Code locally
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#branching" class="md-nav__link">
+    Branching
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull-requests" class="md-nav__link">
+    Pull Requests
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduction-to-prompt-engineering" class="md-nav__link">
+    Introduction to Prompt Engineering
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction to Prompt Engineering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#llms-in-150-words-or-less" class="md-nav__link">
+    LLMs in 150 words (or less)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompt-writing" class="md-nav__link">
+     Prompt Writing
+  </a>
+  
+    <nav class="md-nav" aria-label="Prompt Writing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#priming" class="md-nav__link">
+    Priming
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompt-structure" class="md-nav__link">
+    Prompt Structure
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#role" class="md-nav__link">
+    Role
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tasks" class="md-nav__link">
+    Tasks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#format" class="md-nav__link">
+    Format
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#further-documentation-questions" class="md-nav__link">
+    Further Documentation &amp; Questions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_intro_open_sci/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Open Science
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_managing_data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Managing Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_project_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Project Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_documentation_communication/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Documentation and Communication
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_version_control/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Version Control
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_reproducibility_i/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Reproducibility I: Repeatability
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_reproducibility_ii/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Reproducibility II: Replicability
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Capstone Project
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Capstone Project
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../final_project/overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-unix-shell" class="md-nav__link">
+    The Unix Shell
+  </a>
+  
+    <nav class="md-nav" aria-label="The Unix Shell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cli-vs-terminal-vs-shell" class="md-nav__link">
+    CLI vs Terminal vs Shell
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#things-to-know-about-commands" class="md-nav__link">
+    Things-to-Know About Commands
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#introductory-shell-commands" class="md-nav__link">
+    Introductory Shell Commands
+  </a>
+  
+    <nav class="md-nav" aria-label="Introductory Shell Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#navigation" class="md-nav__link">
+    Navigation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#working-with-files-and-directories" class="md-nav__link">
+    Working with Files and Directories
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#introductory-remarks" class="md-nav__link">
+    Introductory Remarks
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-and-github" class="md-nav__link">
+    Git and Github
+  </a>
+  
+    <nav class="md-nav" aria-label="Git and Github">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introducing-github" class="md-nav__link">
+    Introducing GitHub
+  </a>
+  
+    <nav class="md-nav" aria-label="Introducing GitHub">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#repositories" class="md-nav__link">
+    Repositories
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-and-modifying-code" class="md-nav__link">
+    Adding and Modifying Code
+  </a>
+  
+    <nav class="md-nav" aria-label="Adding and Modifying Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-code-through-the-github-web-page" class="md-nav__link">
+    Adding Code through the GitHub web page
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-code-locally" class="md-nav__link">
+    Adding Code locally
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#branching" class="md-nav__link">
+    Branching
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull-requests" class="md-nav__link">
+    Pull Requests
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduction-to-prompt-engineering" class="md-nav__link">
+    Introduction to Prompt Engineering
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction to Prompt Engineering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#llms-in-150-words-or-less" class="md-nav__link">
+    LLMs in 150 words (or less)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompt-writing" class="md-nav__link">
+     Prompt Writing
+  </a>
+  
+    <nav class="md-nav" aria-label="Prompt Writing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#priming" class="md-nav__link">
+    Priming
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompt-structure" class="md-nav__link">
+    Prompt Structure
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#role" class="md-nav__link">
+    Role
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tasks" class="md-nav__link">
+    Tasks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#format" class="md-nav__link">
+    Format
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#further-documentation-questions" class="md-nav__link">
+    Further Documentation &amp; Questions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="the-unix-shell-git-github-and-llms-an-introduction">The Unix Shell, Git, Github and LLMs: an Introduction<a class="headerlink" href="#the-unix-shell-git-github-and-llms-an-introduction" title="Permanent link">&para;</a></h1>
+<h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
+<p>Command Line Interfaces (CLI) are found throughout all Operating Systems, however we recommend the use of the Unix CLI. If you have a Unix based machine such as Linux/Ubuntu (or other Linux distributions), macOS, you are ready for the next step. If you use a Windows machine, please install the <a href="https://docs.microsoft.com/en-us/windows/wsl/install">Windows Subsistem for Linux (WSL)</a> as seen in the <a href="../installation/#Software">Before FOSS Starts</a> section.</p>
+<hr />
+<h2 id="the-unix-shell">The Unix Shell<a class="headerlink" href="#the-unix-shell" title="Permanent link">&para;</a></h2>
+<p>The computer is a tool. It evolved over the years from being an intricated calculator into an interactive machine with thousands of moving parts that keep us all connected through the Internet. It is now the norm to use a mouse, keyboard, and seeing flashing images on our screens through the Graphical User Interface (GUI). GUIs are central to the way we interact with computers, however, to best take advantage of the computer's many systems, one needs to learn of the <strong>Command Line Interface (CLI)</strong>. The CLI sees the computer stripped down to only a <a href="https://en.wikipedia.org/wiki/Terminal_emulator">Terminal</a> from where one can run powerful commands executed through the <a href="https://en.wikipedia.org/wiki/Shell_(computing)">Shell</a>.</p>
+<p>Whilst the GUI allows for <em>better accessbility</em> to a computer, the CLI allows for <em>advanced usage</em> of one's computer. </p>
+<h3 id="cli-vs-terminal-vs-shell">CLI vs Terminal vs Shell<a class="headerlink" href="#cli-vs-terminal-vs-shell" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Command-line_interface">CLI (Command Line Interface)</a>: an interface that receives commands (and gives output) from a user in the form of lines of text.</li>
+<li><a href="https://en.wikipedia.org/wiki/Terminal_emulator">Terminal</a>: <strong>the</strong> text based interface window.</li>
+<li><a href="https://en.wikipedia.org/wiki/Shell_(computing)">Shell</a>: a computer program and scripting language that presents a CLI which allows you to control your computer using commands.</li>
+</ul>
+<p>The <strong>Shell</strong> sends commands to the computer through the <strong>CLI</strong> accessible through a <strong>Terminal</strong> window</p>
+<h3 id="things-to-know-about-commands">Things-to-Know About Commands<a class="headerlink" href="#things-to-know-about-commands" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Shell commands are used to <strong>navigate</strong>, <strong>visualize</strong>, <strong>modify</strong> (files/folders) and <strong>automate</strong> (processes), and can only be executed through the shell's terminal window.</li>
+<li>For every command, typing <code>man</code> (manual) before the command, will open the manual for said command.
+<div class="highlight"><pre><span></span><code>$ man ls
+</code></pre></div><ul>
+<li>Doing the above command will result in opening the <em>manual</em> for the <code>ls</code> command. You can exist the man page by pressing <code>q</code>.</li>
+</ul>
+</li>
+<li>Each command has <strong>flags</strong>, or options, which are summoned with a <code>-</code>, such as <code>&lt;command&gt; -&lt;flag&gt;</code>.
+<div class="highlight"><pre><span></span><code>$ ls -a -l -h
+</code></pre></div><ul>
+<li>Doing the above command calls for the <code>-a</code> (all), <code>-l</code> (long), <code>-h</code> (human readable) flags. This causes <code>ls</code> to output a list of <em>all</em> files (inculding hidden files/folders) with human readable file size (e.g., it will list 3MB instead of 3000000), permissions, creator, and date of creation.</li>
+<li>If you do not know what flags are available, you can refer to the <code>man</code> command (or for many tools, use the <code>-h</code> (help) flag).</li>
+</ul>
+</li>
+<li><code>.</code> refers to <em>current</em> directory; <code>..</code> refers to <em>above</em> directory; <code>/</code> is the directory separator; <code>~</code> indicates the home directory.
+<div class="highlight"><pre><span></span><code>$ ls .            # lists files and folders in the current directory
+$ ls ..           # lists files and folders in the above directory
+$ ls ~            # lists files and folders in the home directory
+$ ls ~/Documents  # lists files and folders in Documents (a folder present in the home directory)
+</code></pre></div></li>
+</ul>
+<h3 id="introductory-shell-commands">Introductory Shell Commands<a class="headerlink" href="#introductory-shell-commands" title="Permanent link">&para;</a></h3>
+<p>The following are introductory commands necessary when interacting with a computer through the Shell. These will help you orient, create and delete files. Most of this material is explained in more details in the <a href="https://swcarpentry.github.io/shell-novice/">Carpentries' Shell Module</a>. Visit the Carpentries' website for a more in-depth tutorial.</p>
+<div class="admonition info">
+<p class="admonition-title">A short tutorial introducing the Shell</p>
+<div class="highlight"><pre><span></span><code>Here below are quick explanations of a few elementary commands that will help you orient and navigate your files and folders through the Shell. If you would like to follow along the explanations for each command, feel free to download and unzip the [shell-lesson-data.zip](https://swcarpentry.github.io/shell-novice/data/shell-lesson-data.zip) file from the [Shell&#39;s Carpentry module](https://swcarpentry.github.io/shell-novice/setup.html).
+
+??? question &quot;Don&#39;t have access to a GUI?&quot;
+    Following along on a machine with no access to a GUI? Execute the following commands:
+    ```
+    $ sudo apt install unzip
+    $ wget https://swcarpentry.github.io/shell-novice/data/shell-lesson-data.zip
+    $ unzip shell-lesson-data.zip
+    ```
+</code></pre></div>
+</div>
+<h4 id="navigation">Navigation<a class="headerlink" href="#navigation" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pwd</code></td>
+<td>print working directory</td>
+</tr>
+<tr>
+<td><code>ls</code></td>
+<td>list content of folder</td>
+</tr>
+<tr>
+<td><code>cd</code></td>
+<td>change directory</td>
+</tr>
+</tbody>
+</table>
+<p>By typing <code>pwd</code>, the current working directory is printed.</p>
+<div class="highlight"><pre><span></span><code>$ pwd
+/mnt/d/
+</code></pre></div>
+<p>We can then use <code>ls</code> to see the contents of the current directory. By using the <code>-F</code> flag (<code>ls -F</code>) we can also see the type of file. <strong>Note:</strong> an asterisk (<code>*</code>) at the end of the object will denote a file, whilst a slash (<code>/</code>) will denote a folder.</p>
+<div class="highlight"><pre><span></span><code>$ ls -F 
+shell-lesson-data/   shell-lesson-data.zip*
+</code></pre></div>
+<p>We can then move inside the folder of our choice doing <code>cd</code>. Doing <code>ls</code> following the opening of the folder of choice, will show the contents of the folder you just moved in. Feel free to explore the contents of the folders by using <code>cd</code> and <code>ls</code>.</p>
+<div class="highlight"><pre><span></span><code>$ cd shell-lesson-data
+$ ls -F
+
+exercise-data/  north-pacific-gyre/
+
+$ ls -F exercise-data/
+
+animal-counts/  creatures/  numbers.txt*  proteins/  writing/
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Use the Tab key to autocomplete</p>
+<div class="highlight"><pre><span></span><code>You do not need to type the entire name of a folder or file. By using the tab key, the Shell will autocomplete the name of the files or folders. For example, typing the following
+
+```
+$ ls -F exer
+```
+
+and pressing the tab key, will result in autocompletion.
+
+```
+$ ls -F exercise-data/
+```
+
+You can then press tab twice, to print a list of the contents of the folder.
+
+```
+$ ls -F exercise-data/
+animal-counts/ creatures/     numbers.txt    proteins/      writing/ 
+```
+</code></pre></div>
+</div>
+<h4 id="working-with-files-and-directories">Working with Files and Directories<a class="headerlink" href="#working-with-files-and-directories" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mkdir</code></td>
+<td>make a directory</td>
+</tr>
+<tr>
+<td><code>touch</code></td>
+<td>creat empty file</td>
+</tr>
+<tr>
+<td><code>nano</code> or <code>vim</code></td>
+<td>text editors</td>
+</tr>
+<tr>
+<td><code>mv</code></td>
+<td>move command</td>
+</tr>
+<tr>
+<td><code>cp</code></td>
+<td>copy command</td>
+</tr>
+<tr>
+<td><code>rm</code></td>
+<td>remove command</td>
+</tr>
+</tbody>
+</table>
+<p>Return to <code>shell-lesson-data</code>, and crate a directory with <code>mkdir &lt;name of folder&gt;</code>.</p>
+<div class="highlight"><pre><span></span><code>$ mkdir my_folder
+$ ls -F
+exercise-data/  my_folder/  north-pacific-gyre/
+</code></pre></div>
+<p>Notice the new <code>my_folder</code> directory.</p>
+<div class="admonition danger">
+<p class="admonition-title">Naming your files</p>
+<div class="highlight"><pre><span></span><code>It is strongly suggested that you avoid using spaces when naming your files. When using the Shell to communicate with your machine, a space can cause errors when loading or transferring files. Instead, use dashes (`-`), underscores (`_`), periods (`.`) and CamelCase when naming your files.
+
+Acceptable naming:
+```
+$ mkdir my_personal_folder
+$ mkdir my_personal-folder
+$ mkdir MyPersonal.Folder
+```
+??? Question
+    What do you think will happen if you attempt creating a folder by typing spaces?
+
+    ??? Success &quot;Solution&quot;
+        You will obtain as many folders as typed words!
+        ```
+        $ mkdir my folder
+        $ ls -F
+        exercise-data/  folder/  my/  north-pacific-gyre/
+        ```
+        Notice the two folders `my` and `folder`.
+</code></pre></div>
+</div>
+<p>Create an empty file with <code>touch &lt;name of file&gt;</code>.</p>
+<div class="highlight"><pre><span></span><code>$ touch new_file
+</code></pre></div>
+<p><code>touch</code> will create an <strong>empty</strong> file, it is up to you to populate using whichever text editor you prefer. Refer to the carpentries material to know more about nano and its functionalities (<a href="https://swcarpentry.github.io/shell-novice/03-create/index.html#create-a-text-file">link</a>).</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<div class="highlight"><pre><span></span><code>You can also use your text editor to look at the contents of your files!
+</code></pre></div>
+</div>
+<p>Use <code>mv &lt;name of file or folder you want to move&gt; &lt;name of destination folder&gt;</code> to move your newly created file to the directory you created previously (you can then use <code>ls</code> to check if you successully moved the file).</p>
+<p><div class="highlight"><pre><span></span><code>$ ls -F
+exercise-data/  new_file*  my_folder/  north-pacific-gyre/
+
+$ mv new_file my_folder/
+$ ls -F
+exercise-data/  my_folder/  north-pacific-gyre/
+
+$ ls -F my_folder/
+new_file*
+</code></pre></div>
+<code>mv</code> can also be used to <strong>rename</strong> a file or folder with  <code>mv &lt;name of file or folder you want to change&gt; &lt;new name&gt;</code>.</p>
+<div class="highlight"><pre><span></span><code>$ cd my_folder/
+$ mv new_file my_file
+$ ls -F
+my_file*
+</code></pre></div>
+<p><code>cp</code> is the command to copy a file with the syntax <code>cp &lt;name of file you want to copy&gt; &lt;name of copy file&gt;</code></p>
+<div class="highlight"><pre><span></span><code>$ cp my_file copy_my_file
+$ ls -F 
+copy_my_file*  my_file*
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Copying folders</p>
+<div class="highlight"><pre><span></span><code>To copy folders and the content of these folders, you will have to use the `-r` flag (recursive) for `cp` in the following manner `cp -r &lt;name of folder you want to copy&gt; &lt;name of copy folder&gt;` (following example is from the `shell-lesson-data/` directory).
+```
+$ cp -r my_folder/ copy_my_folder
+$ ls -F
+copy_my_folder/  exercise-data/  my_folder/  north-pacific-gyre/
+
+$ ls -F my_folder/
+copy_my_file*  my_file*
+
+$ ls -F copy_my_folder/
+copy_my_file*  my_file*
+```
+</code></pre></div>
+</div>
+<p>To remove an unwanted file, use <code>rm &lt;name of file to remove&gt;</code>.</p>
+<div class="highlight"><pre><span></span><code>$ rm copy_my_file
+$ ls -F 
+my_file
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Removing folders</p>
+<div class="highlight"><pre><span></span><code>Save as the &quot;Copying Folders&quot; note, you have to use the `-r` flag to remove a folder `rm -r &lt;name of folder you want to remove&gt;` (following example is from the `shell-lesson-data/` directory).
+```
+$ rm -r copy_my_folder/
+$ ls -F
+exercise-data/  my_folder/  north-pacific-gyre/
+```
+</code></pre></div>
+</div>
+<h4 id="introductory-remarks">Introductory Remarks<a class="headerlink" href="#introductory-remarks" title="Permanent link">&para;</a></h4>
+<p>The commands listed here above are to help you better understand directories and files. There is a lot more that one can accomplish when communicating with you computer through the Shell. In case you want to know more, here are some useful links you can visit:</p>
+<ul>
+<li><a href="https://swcarpentry.github.io/shell-novice/04-pipefilter/index.html">Pipes and Filters</a></li>
+<li><a href="https://swcarpentry.github.io/shell-novice/05-loop/index.html">Loops</a></li>
+<li><a href="https://swcarpentry.github.io/shell-novice/06-script/index.html">Scripts</a></li>
+<li><a href="https://swcarpentry.github.io/shell-novice/07-find/index.html">Finding Things</a></li>
+</ul>
+<hr />
+<h2 id="git-and-github">Git and Github<a class="headerlink" href="#git-and-github" title="Permanent link">&para;</a></h2>
+<p>The concept of <strong>version control</strong> will be touched on in more depth <a href="../05_version_control/">later</a> on in FOSS, however it is important to know the basics of Git and GitHub. </p>
+<ul>
+<li>
+<p><strong>Git</strong>: </p>
+<ul>
+<li>First developed in 2005, git is a version control software that allows users to make changes and add versions to their code.</li>
+<li>Changes and versions are saved locally.</li>
+<li>Accessible through the Shell.</li>
+</ul>
+</li>
+<li>
+<p><strong>GitHub</strong>:</p>
+<ul>
+<li>First launched in 2008, its main focus is hosting and sharing code.</li>
+<li>Changes and versions are saved online (requires an account).</li>
+<li>Mainly administered through the web (it also has a desktop app).</li>
+<li>Code can be <strong>cloned</strong> to your computer, changes can be <strong>pulled</strong>, <strong>committed</strong> and <strong>pushed</strong>.</li>
+</ul>
+</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">The <strong>O</strong> in FOSS</p>
+<div class="highlight"><pre><span></span><code>FOSS stands for Foundational **Open** Science Skills: how many times have you worked on your code just to hit a bottleneck and found a solution on Stack Overflow? How many times have you found links that bring you to a GitHub repository with the exact snippet of code you needed?
+
+The beauty of the **O** is that it makes Science and its code available for all through the internet, sharing ideas and solutions for all.
+
+!!! Warning &quot;Licences&quot;
+        Beware of what code you use and replicate, as a complete GitHub repository comes with a **licence**. Different licences allow the code to be accessed and shared in different methods, therefore always exercise care when looking at other people&#39;s code.
+</code></pre></div>
+</div>
+<h3 id="introducing-github">Introducing GitHub<a class="headerlink" href="#introducing-github" title="Permanent link">&para;</a></h3>
+<p>Since we are talking about making science accessible, we invite you to use GitHub to save and share your code. Please start by creating a GitHub account at <a href="https://github.com/">https://github.com/</a>.</p>
+<h4 id="repositories">Repositories<a class="headerlink" href="#repositories" title="Permanent link">&para;</a></h4>
+<p>Repositories are where you code is stored. A suggestion is to have <em>one</em> repository for <em>one</em> project.</p>
+<p>You can create repositories by clicking on the <strong>Repositories</strong> tab, and then clicking <strong>New</strong>.</p>
+<p><img alt="git_1" src="../assets/git_1.png" /></p>
+<p>Here, you can choose the name of your own repository, choose to make it private or public, adding a README and a licence. It is <strong>strongly</strong> reccomended that you choose to add an empty README file.</p>
+<p><img alt="git_2" src="../assets/git_2.png" /></p>
+<div class="admonition info">
+<p class="admonition-title">So, why a README?</p>
+<div class="highlight"><pre><span></span><code>There are two main reasons why you would like a README file:
+
+1. It adds structure to your repository *automatically* - otherwise you would need to create said structure by yourself (not recommended for beginners).
+2. It is the &quot;default&quot; file that GitHub reads upon opening the repository. It can be treated as the go-to file that explains what the repository is for, what each file does, how to cite your reasearch, amongst other things.
+</code></pre></div>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Adding a Licence</p>
+<div class="highlight"><pre><span></span><code>As discussed previously, the addition of a licence can heavily contribute to the shareability of your code. Make sure that whichever licence you choose is in line with your principals as well as your project&#39;s. GitHub comes with a list of licences which you can review. It is also common to choose a licence later on!
+</code></pre></div>
+</div>
+<p>Ultimately, your new repository should look like the following screenshot. Notice the <strong>LICENCE</strong> document and the <strong>README.md</strong></p>
+<p><img alt="git_3" src="../assets/git_3.png" /></p>
+<div class="admonition info">
+<p class="admonition-title">The Markdown Extension (.md)</p>
+<div class="highlight"><pre><span></span><code>Markdown is a lightweight markup language for creating formatted text using a plain-text editor well widespread throughout text files on the web. It uses symbols (*~-#`) for syntaxing text, and it is what GitHub (and this website!) use to format text. You can read more on Markdown on the [Markdown Guide](https://www.markdownguide.org/).
+</code></pre></div>
+</div>
+<h4 id="adding-and-modifying-code">Adding and Modifying Code<a class="headerlink" href="#adding-and-modifying-code" title="Permanent link">&para;</a></h4>
+<p>GitHub allows you to add and modify code in two ways: through the online portal (the webpage you're seeing) and on your computer. </p>
+<h5 id="adding-code-through-the-github-web-page"><strong>Adding Code through the GitHub web page</strong><a class="headerlink" href="#adding-code-through-the-github-web-page" title="Permanent link">&para;</a></h5>
+<p>Adding code to your repository through the web page is suggested if what you want to add is simple (Like a README file!).</p>
+<ul>
+<li>Click the <strong>Add File</strong> button, which will allow you to either create a new file, or upload files from your computer. Select <strong>Create New File</strong>.</li>
+<li>The editing page will open: choose a name and an extension on the top of the page.</li>
+<li>On the editing page you can modify code as you see necessary (writing, pasting)</li>
+<li><img alt="git_05" src="../assets/git_5.png" /><ul>
+<li>you can also see your changes (if formatted) with the preview function (with the <strong>Preview</strong> button).</li>
+</ul>
+</li>
+<li>To "Save" your changes, you will need to <strong>commit</strong> your changes:<ul>
+<li>navigate at the bottom of the page, specify your commit with a name and add a description if necessary.</li>
+</ul>
+</li>
+<li><img alt="git_06" src="../assets/git_6.png" /></li>
+<li>You will be able to see your newly created file on your repository home after committing your changes.</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Committing changes</p>
+<div class="highlight"><pre><span></span><code>**Committing** is the term used for *saving* changes you&#39;ve made to your code. Each **commit** can be accessed within the GitHub web interface, which will show you the code prior and after the changes you&#39;ve made. To see a list of all commits you made, click on the :fontawesome-solid-clock-rotate-left: icon under the **Code** button.
+
+- You can see from the picture below the lines that have been removed (in red), and the lines that have been added (in green).
+![git_07](assets/git_7.png)
+
+- Additionally, you can also see the full list of commits made to the file or repository.
+![git_08](assets/git_8.png)
+</code></pre></div>
+</div>
+<h5 id="adding-code-locally"><strong>Adding Code locally</strong><a class="headerlink" href="#adding-code-locally" title="Permanent link">&para;</a></h5>
+<p>Adding code locally is a more complex than adding code through the web page, but it allows for better control on what files you commit.</p>
+<ul>
+<li>To add or modify code locally, you need to <strong>clone</strong> the repository on your computer. This requries that you have <code>git</code> installed on your machine; If you do not have <code>git</code> installed, use the following commands:
+<div class="highlight"><pre><span></span><code>$ sudo apt-get install -y git-all
+</code></pre></div></li>
+<li>You can then clone the repository by clicking on the <strong>Code</strong> button, and copying the link shown</li>
+<li><img alt="git_04" src="../assets/git_4.png" /></li>
+<li>On your machine, open a terminal window and type the following command:
+<div class="highlight"><pre><span></span><code>$ git clone &lt;repository address&gt;     # Replace &lt;repository address&gt; with the link you copied such as below
+
+$ git clone https://github.com/CosiMichele/3_git_tutorial.git
+Cloning into &#39;foss23_git_tutorial&#39;...
+remote: Enumerating objects: 13, done.
+remote: Counting objects: 100% (13/13), done.
+remote: Compressing objects: 100% (12/12), done.
+remote: Total 13 (delta 5), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (13/13), 14.47 KiB | 90.00 KiB/s, done.
+</code></pre></div></li>
+<li>Your code is now available to you on your machine, and you can add and modify files as needed.</li>
+</ul>
+<p>You have modified your code locally, however you still have to push it to the repository. Prior to doing so there are a couple of steps you should do:</p>
+<ul>
+<li><code>git status</code>: it checkes on the status of the repository (files that have been modified, deleted, added - from either local or in the online repository)</li>
+<li><code>git pull</code>: it checks and "pulls" changes from the online repository to your local repository. It ensures that you are always updated on the repository files <em>and</em> it can save a lot of time in case there are clashing commits from different users.</li>
+</ul>
+<p>To do so:</p>
+<ul>
+<li><strong>Add</strong> all fiels you have modified and want to commit:
+<div class="highlight"><pre><span></span><code>$ git add .    # Recall that &quot;.&quot; (period) stands for all files in a folder 
+</code></pre></div></li>
+<li><strong>Commit</strong> the changes. When committing changes, you have to add a message (in quotation marks) with the <code>-m</code> flag. This message is a concise and descriptive few words about what you did:
+<div class="highlight"><pre><span></span><code>$ git commit -m &quot;locally added and modified files&quot;
+[main 05f0ef6] locally added and modified files
+ 2 files changed, 11 insertions(+), 1 deletion(-)
+ create mode 100644 file_from_local.md
+</code></pre></div></li>
+<li>push your changes with <strong>push</strong>:
+<div class="highlight"><pre><span></span><code>$ git push
+Enumerating objects: 6, done.
+Counting objects: 100% (6/6), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 585 bytes | 32.00 KiB/s, done.
+Total 4 (delta 0), reused 0 (delta 0)
+To https://github.com/CosiMichele/foss22_git_tutorial.git
+   b649de3..05f0ef6  main -&gt; main
+</code></pre></div></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">First time Pushing a commit?</p>
+<div class="highlight"><pre><span></span><code>GitHub is not going to blindly allow you to push changes to the repo, but it will be asking for you to log in.
+
+- When asked for the user name:
+    - Add the username that you use to login into GitHub
+- When it asks you for the password:
+    - **DO NOT PUT YOUR PASSWORD**, you will require a **token** instead
+    - Generate the token by 
+        - On GitHub, click on your avatar (top right, and navigate to **Settings**)
+        - Scroll down to the bottom of the left hand menu, select **Developer settings**, and then **Personal access tokens**
+        - Now click on **Generate new token** (Enter password if requested)
+        - Choose the lenght of time for which this token is valid for, a note (for example, a reminder of what computer you&#39;re using this token on), and all the functionalities attached to it (as this is your private repository, you can select all the functionalities). Scroll to the bottom of the page and click **Generate token**
+        - Once created, the token is going to appear: **copy the token and paste it in the password field in your terminal instead of your password**.
+</code></pre></div>
+</div>
+<p>You can now see the changes you made locally on the GitHub repository page.</p>
+<p><img alt="git_09" src="../assets/git_9.png" /></p>
+<h4 id="branching">Branching<a class="headerlink" href="#branching" title="Permanent link">&para;</a></h4>
+<p>Branching allows you to develop your code whilst in a contained environment separate from your <strong>main</strong> environment. You can view the list and number of branches on the top of your repository.</p>
+<p><img alt="git_10" src="../assets/git_10.png" /></p>
+<div class="admonition info">
+<p class="admonition-title">Why working on branches?</p>
+<div class="highlight"><pre><span></span><code>Branches allow you to add/remove/change exisiting code independently from your main branch. This code can include alphas, betas and different versions of your code. Branches can be used to develop documentation or include different functionalitiets focused on Operating Systems and/or clusters and job schedulers. If needed, you can add these codes to your main branch later using [**pull requests**](00_basics.md#pull-requests).
+</code></pre></div>
+</div>
+<p>To create a new branch select the <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Zm-6 0a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"/></svg></span> branch icon (listing the number of branches). This will open the branch page, which will list all of the branches in this repository.</p>
+<p><img alt="git_11" src="../assets/git_11.png" /></p>
+<p>Select <strong>New Branch</strong> on the top right. Give the new branch a name of your choice, select the source of code (in this case the only source of code can be the main branch) and select <strong>Create branch</strong>.</p>
+<p><img alt="git_12" src="../assets/git_12.png" /></p>
+<p>You can now see the updated list of all your branches.</p>
+<p><img alt="git_13" src="../assets/git_13.png" /></p>
+<p>You can now use this new branch to create changes you are not yet ready to put in your main branch.</p>
+<div class="admonition warning">
+<p class="admonition-title">Want to delete a branch?</p>
+<div class="highlight"><pre><span></span><code>You can delete a branch from the branch web page by clicking on the :octicons-trash-16: trash can icon. **Beware!** All the changes you&#39;ve made on that branch will be deleted!
+</code></pre></div>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Working on your machine?</p>
+<div class="highlight"><pre><span></span><code>Once you create a branch online, you can change to the desired branch on your machine with `git switch &lt;branch&gt;`. Don&#39;t forget to push your changes first!
+
+!!! tip &quot;Pull and Tab&quot;
+        - Don&#39;t forget to perform a `git pull`!
+        - Don&#39;t know your branches? Tab! When typing `git switch`, press tab to see the options of all the branches you&#39;ve created.
+</code></pre></div>
+</div>
+<h4 id="pull-requests">Pull Requests<a class="headerlink" href="#pull-requests" title="Permanent link">&para;</a></h4>
+<p>Pull requests (PR) are proposed changes you can make on a repository. In this specific case, pull requests can be used to merge changes from a branch to another. Pull requests can also come from <strong>forks</strong> of your repository that another user or collaborator has made. </p>
+<p>Assuming you have made changes in your branch (added a file, for example), a pop up will notify you that a branch has pushed some changes. In case you want to merge the branch and the main repository, you can review and merge by clicking the <strong>Compare &amp; pull request</strong> button. However, you may want to wait until more changes are made.</p>
+<p><img alt="git_14" src="../assets/git_14.png" /></p>
+<p>Once you are ready to merge the changes onto your main branch, click on the <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Zm-6 0a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"/></svg></span> branch icon, and select <strong>New pull request</strong> from the branch you have just made changes. This will open a new page which will list all the changes made showing all files that have been modified, added, or deleted. When you're done reviewing your changes, click <strong>Create pull request</strong>.</p>
+<p><img alt="git_15" src="../assets/git_15.png" /></p>
+<div class="admonition info">
+<p class="admonition-title">Pay attention to the information on the PR page!</p>
+<div class="highlight"><pre><span></span><code>The PR page will not only show you what changes you&#39;ve made, but also where the changes are coming from (which branch), as well as reviewers, assigneers, labels and other information necessary when working on a big project. It will also show whether the changes are **Able** to be merged (:material-check:) or not (:octicons-x-16:)!
+</code></pre></div>
+</div>
+<p>Upon createing the pull request, a new page will open which will test whether the changes can be merged automatically. Changes that are not able to be merged usually clash with other changes other collaborators have made - this will require your revision prior to merging the PR! After revision, select <strong>Merge pull request</strong> and <strong>Confirm merge</strong>.</p>
+<p><img alt="git_16" src="../assets/git_16.png" /></p>
+<p>Your main repository should now have the files created in your other branch and merged through the PR!</p>
+<p><img alt="git_17" src="../assets/git_17.png" /></p>
+<hr />
+<h2 id="introduction-to-prompt-engineering">Introduction to Prompt Engineering<a class="headerlink" href="#introduction-to-prompt-engineering" title="Permanent link">&para;</a></h2>
+<div class="admonition info">
+<p class="admonition-title">This section is taken from the "<a href="https://ua-data7.github.io/introllms/">GPT101</a>" CyVerse Workshop</p>
+</div>
+<p>A great set of tools that can help you with your own research, if used in the correct way, are the new Large Language Models (LLMs) available publicly. These include <a href="https://chat.openai.com/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08-4.778 2.758a.795.795 0 0 0-.393.681zm1.097-2.365 2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5Z"/></svg></span> ChatGPT</a>, <a href="https://bard.google.com/?hl=en"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m11.446 16.122-.957 2.196a1.034 1.034 0 0 1-1.906 0l-.957-2.196a8.455 8.455 0 0 0-4.303-4.358l-2.638-1.17c-.839-.372-.839-1.593 0-1.965L3.24 7.494A8.452 8.452 0 0 0 7.605 2.99L8.576.651a1.033 1.033 0 0 1 1.919 0l.972 2.339a8.452 8.452 0 0 0 4.365 4.504l2.555 1.135c.839.372.839 1.593 0 1.965l-2.638 1.17a8.455 8.455 0 0 0-4.303 4.358Zm8.907 6.922-.27.617a.553.553 0 0 1-1.02 0l-.27-.617a4.77 4.77 0 0 0-2.426-2.459l-.83-.368c-.449-.2-.449-.853 0-1.052l.783-.348a4.769 4.769 0 0 0 2.461-2.541l.277-.667a.554.554 0 0 1 1.029 0l.277.667a4.764 4.764 0 0 0 2.46 2.541l.785.348c.448.199.448.852 0 1.052l-.832.368a4.762 4.762 0 0 0-2.424 2.459Z"/></svg></span> Bard</a> and <a href="https://www.bing.com/new?form=MY0291&amp;OCID=MY0291"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.176 15.406a6.48 6.48 0 0 1-1.736 4.414c1.338-1.47.803-3.869-1.003-4.635-.862-.305-2.488-.85-3.367-1.158a1.834 1.834 0 0 1-.932-.818c-.381-.975-1.163-2.968-1.548-3.948-.095-.285-.31-.625-.265-.938.046-.598.724-1.003 1.276-.754l3.682 1.888c.621.292 1.305.692 1.796 1.172a6.486 6.486 0 0 1 2.097 4.777zm-1.44 1.888c-.264-1.194-1.135-1.744-2.216-2.028-1.527.902-4.853 2.878-6.952 4.13-1.103.68-2.13 1.35-2.919 1.242a2.866 2.866 0 0 1-2.77-2.325c-.012-.048-.008-.03-.001.01a6.4 6.4 0 0 0 .947 2.653 6.498 6.498 0 0 0 5.486 3.022c1.908.062 3.536-1.153 5.099-2.096.292-.188.804-.496 1.332-.831l1.423-1.51c.553-.577.764-1.426.571-2.267zm-12.04 2.97c.422 0 .822-.1 1.173-.29.355-.215.964-.579 1.7-1.018L9.57 4.502c0-.99-.497-1.864-1.257-2.382-.08-.059-2.91-1.901-2.99-1.956-.605-.432-1.523.045-1.5.797v14.887l.417 2.36a2.488 2.488 0 0 0 2.455 2.056z"/></svg></span> Bing Chat</a> (integrated with <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10.86 15.37c-.69-.77-1.16-1.69-1.31-2.72-.3.46-.55.96-.73 1.5-.92 2.75.68 6.18 3.4 7.18 2.34.78 4.97-.61 6.7-2.13.26-.35 2.31-2.16 1.29-2.36-3.02 1.55-7.02 1.11-9.35-1.47m.6-5.81c1.04-.01.04-.43-.39-.75-1.04-.57-2.26-.85-3.44-.85C3.78 8 .995 10.41 2.3 14.4c.94 3.88 4.31 7 8.29 7.5-2.05-1.29-3.29-3.71-3.29-6.12.08-2.53 1.64-5.5 4.16-6.22M2.78 8.24C5.82 6 10.66 6.18 13.28 9c1.02 1.11 1.72 3 .79 4.37-1.74 1.88 3.08 2.13 4.11 1.85 3.74-.72 4.73-5.07 2.95-8.07-1.7-3.4-5.47-5.18-9.17-5.15-4.06-.07-7.71 2.5-9.18 6.24Z"/></svg></span> Microsoft Edge).</p>
+<h3 id="llms-in-150-words-or-less">LLMs in 150 words (or less)<a class="headerlink" href="#llms-in-150-words-or-less" title="Permanent link">&para;</a></h3>
+<p><strong>How they're made</strong>: LLMs work by training on vast amounts of text from the internet. They learn patterns, grammar, and context from this data. When you give them a prompt, they generate text based on what they've learned. Imagine a super-smart autocomplete for text, but it can also create entire paragraphs or articles.</p>
+<p><strong>How they work</strong>: LLMs don't understand like humans do. They predict what comes next in a sentence using math and probabilities. They don't have thoughts or feelings. They mimic human language but can make mistakes or write nonsense if not guided well.</p>
+<p><strong>How you can use them</strong>: They're incredibly versatile. You can use them for answering questions, writing essays, coding help, and more. <strong><em>But you must be cautious because they can generate biased or false information if not used responsibly</em></strong>. </p>
+<p>In a nutshell, LLMs are like super-powered text generators trained on the internet's vast knowledge.</p>
+<h3 id="prompt-writing"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08-4.778 2.758a.795.795 0 0 0-.393.681zm1.097-2.365 2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5Z"/></svg></span> Prompt Writing<a class="headerlink" href="#prompt-writing" title="Permanent link">&para;</a></h3>
+<p>GPT Chat asks for a message to begin its conversation. These messages are called "Prompts". </p>
+<p>Begin a conversation with a specific type of prompt. This will help narrow the potential range of responses and improve results to subsequent prompts. </p>
+<h4 id="priming">Priming<a class="headerlink" href="#priming" title="Permanent link">&para;</a></h4>
+<p>GPTs do better when provided with "prompt primers".</p>
+<p>Zero-shot unconditioned prompts are likely to return the least specific responses. </p>
+<p>Responses are more likely to be useful when multiple specific output types are defined.</p>
+<table>
+<thead>
+<tr>
+<th>Types of Priming</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zero (Shot)</td>
+<td>"Write five examples of assessments for watershed health."</td>
+</tr>
+<tr>
+<td>Single</td>
+<td>"Write five examples of assessments for watershed health. Here is one example: Geomorphology"</td>
+</tr>
+<tr>
+<td>Multiple</td>
+<td>"Write five examples of assessments for watershed health related to geomorphology, water quality, and species diversity."</td>
+</tr>
+</tbody>
+</table>
+<h4 id="prompt-structure">Prompt Structure<a class="headerlink" href="#prompt-structure" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Task</th>
+<th>Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Act as <a href="#role">[ROLE]</a></td>
+<td>Create a <a href="#tasks">[TASK]</a></td>
+<td>... show as <a href="#format">[FORMAT]</a></td>
+</tr>
+</tbody>
+</table>
+<p>Your prompt should specify the role in which ChatGPT responds, what its task is, and the format of how its outputs should be returned. </p>
+<p>A second step to the initial prompt is to <a href="#linked-prompts">link or chain</a> your subsequent prompts. </p>
+<p>This lesson only covers ChatGPT, but the same prompt techniques can be used in other LLMs.</p>
+<h4 id="role">Role<a class="headerlink" href="#role" title="Permanent link">&para;</a></h4>
+<p>Set the role for ChatGPT to play during your session. </p>
+<p>"I want you to act as ..." will establish what type of conversation you are planning to have. </p>
+<table>
+<thead>
+<tr>
+<th>Types of Roles</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project Manager</td>
+</tr>
+<tr>
+<td>Copywriter / Editor</td>
+</tr>
+<tr>
+<td>Paper Reviewer</td>
+</tr>
+<tr>
+<td>Teacher / Mentor / Advisor</td>
+</tr>
+<tr>
+<td>Student / Learner / Participant</td>
+</tr>
+<tr>
+<td>Software Engineer</td>
+</tr>
+<tr>
+<td>DevOps Engineer</td>
+</tr>
+<tr>
+<td>Linux Terminal</td>
+</tr>
+<tr>
+<td>Python Interpreter</td>
+</tr>
+<tr>
+<td>Web Browser</td>
+</tr>
+</tbody>
+</table>
+<p>Examples of roles you might ask for are: a domain science expert, an IT or DevOps engineer, software programmer, journal editor, paper reviewer, mentor, teacher, or student. You can even instruct ChatGPT to respond as though it were a Linux <a href="https://www.engraved.blog/building-a-virtual-machine-inside/">terminal</a>, a web browser, a search engine, or language interpreter.</p>
+<details class="abstract">
+<summary>Data Scientist</summary>
+<p>Let's try an example prompt with role-playing to help write code in the R programming language.</p>
+<div class="highlight"><pre><span></span><code>I want you to act as a data scientist with complete knowledge of the R language, 
+the TidyVerse, and RStudio. 
+
+Write the code required to create a new R project environment,
+Download and load the Palmer Penguins dataset, and plot regressions of body mass, 
+bill length, and width for the species of Penguins in the dataset. 
+
+Your response output should be in R and RMarkDown format 
+with text and code delineated with ``` blocks.
+
+At the beginning of new file make sure to install any 
+RStudio system dependencies and R libraries that Palmer Penguins requires.
+</code></pre></div>
+<p>Example can use <code>GPT-3.5-Turbo</code> or <code>GPT-4</code></p>
+</details>
+<details class="abstract">
+<summary>Talk to Dead Scientists</summary>
+<p>Try to ask a question with and without Internet access enabled:</p>
+<p><div class="highlight"><pre><span></span><code>I want you to respond as though you are the mathematician Benoit Mandelbrot
+
+Explain the relationship of lacunarity and fractal dimension for a self-affine series
+
+Show your results using mathematical equations in LaTeX or MathJax style format
+</code></pre></div>
+Again, there is no guarantee that the results ChatGPT provides are factual, but it does greatly improve the odds that they are relevant to the prompt. Most importantly, these extensions provide citations for their results, allowing you to research the results yourself. </p>
+</details>
+<h4 id="tasks">Tasks<a class="headerlink" href="#tasks" title="Permanent link">&para;</a></h4>
+<p>Prompts which return informative responses to questions like "What is ..." or "How does ..."</p>
+<p>Because of ChatGPT's proclivity at making up information, using it without a way of validating the authenticity of its responses makes it less trustworthy than regular search engines. </p>
+<table>
+<thead>
+<tr>
+<th>Types of Task</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scientific Article</td>
+</tr>
+<tr>
+<td>Essay</td>
+</tr>
+<tr>
+<td>Blog Post</td>
+</tr>
+<tr>
+<td>Outline</td>
+</tr>
+<tr>
+<td>Email</td>
+</tr>
+<tr>
+<td>Cover Letter</td>
+</tr>
+<tr>
+<td>Recipe</td>
+</tr>
+<tr>
+<td>Tutorial</td>
+</tr>
+<tr>
+<td>Lesson Plan</td>
+</tr>
+<tr>
+<td>Jupyter Notebook</td>
+</tr>
+<tr>
+<td>Configuration</td>
+</tr>
+<tr>
+<td>Code</td>
+</tr>
+<tr>
+<td>Software Script</td>
+</tr>
+</tbody>
+</table>
+<p>Bing and Bard fill an important space in these types of prompts - they return websites which match the query criterion and allow you to research your own answers.</p>
+<p>There are extension tools for ChatGPT which allows you to prompt with references.</p>
+<h4 id="format">Format<a class="headerlink" href="#format" title="Permanent link">&para;</a></h4>
+<p>By default ChatGPT outputs MarkDown syntax text. It can also output software code, and soon images, video, music and sounds.</p>
+<table>
+<thead>
+<tr>
+<th>Formats to output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MarkDown Text (\&amp; emojis)</td>
+</tr>
+<tr>
+<td>List</td>
+</tr>
+<tr>
+<td>Table</td>
+</tr>
+<tr>
+<td>HTML</td>
+</tr>
+<tr>
+<td>CSS</td>
+</tr>
+<tr>
+<td>Regular Expression</td>
+</tr>
+<tr>
+<td>CSV / TXT</td>
+</tr>
+<tr>
+<td>JSON</td>
+</tr>
+<tr>
+<td>Rich Text</td>
+</tr>
+<tr>
+<td>Gantt Chart</td>
+</tr>
+<tr>
+<td>Word Cloud</td>
+</tr>
+<tr>
+<td>Graphs</td>
+</tr>
+<tr>
+<td>Spreadsheets</td>
+</tr>
+</tbody>
+</table>
+<p>You can also ask ChatGPT to explain complex topics or to act as a cook-book step-by-step guide. </p>
+<p>ChatGPT can provide instructional details about how to do specific tasks. </p>
+<details class="abstract">
+<summary>Documentation Writer</summary>
+<div class="highlight"><pre><span></span><code>I want you to act as a DIY expert. You will help me develop the skills necessary 
+to complete simple lab documentation, create tutorials and guides for beginners and experts, 
+and explain complex concepts in layman&#39;s terms using visual techniques, and develop helpful resources.
+
+I want you to create a tutorial for building and deploying a github.io website using the MkDocs Material Theme
+</code></pre></div>
+</details>
+<h3 id="further-documentation-questions">Further Documentation &amp; Questions<a class="headerlink" href="#further-documentation-questions" title="Permanent link">&para;</a></h3>
+<p>For a more in depth quick start, go to the <a href="https://ua-data7.github.io/introllms/">GPT 101</a> workshop. </p>
+<p>Documentation of interest:</p>
+<ul>
+<li>Read the <a href="https://openai.com/blog/chatgpt"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08-4.778 2.758a.795.795 0 0 0-.393.681zm1.097-2.365 2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5Z"/></svg></span> ChatGPT Documentation</a></li>
+<li>Read the <a href="https://doi.org/10.48550/arXiv.2303.08774"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M64 464h32v48H64c-35.3 0-64-28.7-64-64V64C0 28.7 28.7 0 64 0h165.5c17 0 33.3 6.7 45.3 18.7l90.5 90.5c12 12 18.7 28.3 18.7 45.3V288h-48V160h-80c-17.7 0-32-14.3-32-32V48H64c-8.8 0-16 7.2-16 16v384c0 8.8 7.2 16 16 16zm112-112h32c30.9 0 56 25.1 56 56s-25.1 56-56 56h-16v32c0 8.8-7.2 16-16 16s-16-7.2-16-16V368c0-8.8 7.2-16 16-16zm32 80c13.3 0 24-10.7 24-24s-10.7-24-24-24h-16v48h16zm96-80h32c26.5 0 48 21.5 48 48v64c0 26.5-21.5 48-48 48h-32c-8.8 0-16-7.2-16-16V368c0-8.8 7.2-16 16-16zm32 128c8.8 0 16-7.2 16-16v-64c0-8.8-7.2-16-16-16h-16v96h16zm80-112c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16s-7.2 16-16 16h-32v32h32c8.8 0 16 7.2 16 16s-7.2 16-16 16h-32v48c0 8.8-7.2 16-16 16s-16-7.2-16-16V368z"/></svg></span> ChatGPT Technical Report</a></li>
+<li>Read the <a href="https://ai.google/static/documents/google-about-bard.pdf"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M64 464h32v48H64c-35.3 0-64-28.7-64-64V64C0 28.7 28.7 0 64 0h165.5c17 0 33.3 6.7 45.3 18.7l90.5 90.5c12 12 18.7 28.3 18.7 45.3V288h-48V160h-80c-17.7 0-32-14.3-32-32V48H64c-8.8 0-16 7.2-16 16v384c0 8.8 7.2 16 16 16zm112-112h32c30.9 0 56 25.1 56 56s-25.1 56-56 56h-16v32c0 8.8-7.2 16-16 16s-16-7.2-16-16V368c0-8.8 7.2-16 16-16zm32 80c13.3 0 24-10.7 24-24s-10.7-24-24-24h-16v48h16zm96-80h32c26.5 0 48 21.5 48 48v64c0 26.5-21.5 48-48 48h-32c-8.8 0-16-7.2-16-16V368c0-8.8 7.2-16 16-16zm32 128c8.8 0 16-7.2 16-16v-64c0-8.8-7.2-16-16-16h-16v96h16zm80-112c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16s-7.2 16-16 16h-32v32h32c8.8 0 16 7.2 16 16s-7.2 16-16 16h-32v48c0 8.8-7.2 16-16 16s-16-7.2-16-16V368z"/></svg></span> Bard Documentation</a></li>
+</ul>
+<details class="tip">
+<summary>How long can or should a prompt be?</summary>
+<p>The length of a prompt is <a href="https://techcommunity.microsoft.com/t5/healthcare-and-life-sciences/unlocking-the-power-of-tokens-optimizing-token-usage-in-gpt-for/ba-p/3826665">measured in "tokens"</a>. A token can represent an individual character, a word, or a subword depending on the specific tokenization approach. A rough estimate for the average number of words in English language per token is <code>0.75</code>. </p>
+<p>Currently, ChatGPT version <code>GPT-3.5turbo</code> uses up to 2,048 tokens per prompt, GPT-4 and Bing Chat can take up to 32,768 tokens. BARD currently has a limit of 20,000 tokens in a prompt. </p>
+<p>This means that a 2,048 token prompt would be equivalent to about 1,536 words (3-6 pages), and a 32,768 token prompt would be 24,576 words (50-100 pages). </p>
+<p>However, this is only an approximation and may vary depending on the specific text and model. </p>
+<p>What this also means is that current GPT are not capable of reading many PDFs at one time, for example, to do a literature review, or to write a sequel to a novel or book series. </p>
+</details>
+<details class="tip">
+<summary>ChatGPT <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m24 11.438-6.154-5.645-.865.944 5.128 4.7H1.895l5.128-4.705-.865-.943-6.154 5.649H0v3.72c0 1.683 1.62 3.053 3.61 3.053h3.795c1.99 0 3.61-1.37 3.61-3.051v-2.446h1.97v2.446c0 1.68 1.62 3.051 3.61 3.051h3.794c1.99 0 3.61-1.37 3.61-3.051v-3.721z"/></svg></span> Awesome Lists</summary>
+<p>There is an ever changing meta-list of <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m24 11.438-6.154-5.645-.865.944 5.128 4.7H1.895l5.128-4.705-.865-.943-6.154 5.649H0v3.72c0 1.683 1.62 3.053 3.61 3.053h3.795c1.99 0 3.61-1.37 3.61-3.051v-2.446h1.97v2.446c0 1.68 1.62 3.051 3.61 3.051h3.794c1.99 0 3.61-1.37 3.61-3.051v-3.721z"/></svg></span> Awesome lists curated around ChatGPT plugins and extensions.</p>
+<p><a href="https://github.com/search?q=awesome-chatgpt+&amp;type=repositories&amp;s=stars&amp;o=desc"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></span> search: <code>chatgpt+awesome</code></a></p>
+<p>Check out lists around:</p>
+<p><a href="https://github.com/f/awesome-chatgpt-prompts"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m24 11.438-6.154-5.645-.865.944 5.128 4.7H1.895l5.128-4.705-.865-.943-6.154 5.649H0v3.72c0 1.683 1.62 3.053 3.61 3.053h3.795c1.99 0 3.61-1.37 3.61-3.051v-2.446h1.97v2.446c0 1.68 1.62 3.051 3.61 3.051h3.794c1.99 0 3.61-1.37 3.61-3.051v-3.721z"/></svg></span> ChatGPT Prompts</a></p>
+<p><a href="https://github.com/travistangvh/ChatGPT-Data-Science-Prompts"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m24 11.438-6.154-5.645-.865.944 5.128 4.7H1.895l5.128-4.705-.865-.943-6.154 5.649H0v3.72c0 1.683 1.62 3.053 3.61 3.053h3.795c1.99 0 3.61-1.37 3.61-3.051v-2.446h1.97v2.446c0 1.68 1.62 3.051 3.61 3.051h3.794c1.99 0 3.61-1.37 3.61-3.051v-3.721z"/></svg></span> ChatGPT Data Science Prompts</a></p>
+<p><a href="https://github.com/humanloop/awesome-chatgpt"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m24 11.438-6.154-5.645-.865.944 5.128 4.7H1.895l5.128-4.705-.865-.943-6.154 5.649H0v3.72c0 1.683 1.62 3.053 3.61 3.053h3.795c1.99 0 3.61-1.37 3.61-3.051v-2.446h1.97v2.446c0 1.68 1.62 3.051 3.61 3.051h3.794c1.99 0 3.61-1.37 3.61-3.051v-3.721z"/></svg></span> API plugins, extensions, &amp; applications</a></p>
+</details>
+<details class="tip">
+<summary>Access the Internet</summary>
+<p>By default, ChatGPT does not have access to the Internet, and is limited to the time period before September 2021 (as of mid-2023) for its training data time frame. </p>
+<p>There are third-party extensions, like <a href="https://www.webchatgpt.app/">WebChatGPT</a> which you can install in your browser (Firefox or Chrome), that will extend OpenAI ChatGPT's reach to the internet.</p>
+<p>We presently recommend using <a href="bing.md"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 3v16l3.72 2L18 15.82v-4.09L9.77 8.95l1.61 3.89L13.94 14 8.7 16.92V4.27L5 3"/></svg></span> Bing Chat</a> with Edge Browser instead of ChatGPT 3.5 for prompting which works with the internet.</p>
+<p><a href="bard.md"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg></span> Bard</a> also has access to the web and limited integration with Google Workspace.</p>
+</details>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      2023-10-16
+    
+  </small>
+</div>
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 CyVerse
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://orcid.org/" target="_blank" rel="noopener" title="orcid.org" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M294.75 188.19h-45.92V342h47.47c67.62 0 83.12-51.34 83.12-76.91 0-41.64-26.54-76.9-84.67-76.9zM256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm-80.79 360.76h-29.84v-207.5h29.84zm-14.92-231.14a19.57 19.57 0 1 1 19.57-19.57 19.64 19.64 0 0 1-19.57 19.57zM300 369h-81V161.26h80.6c76.73 0 110.44 54.83 110.44 103.85C410 318.39 368.38 369 300 369z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/cyverse-learning-material/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/cyverseorg" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/company/cyverse.org" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://harbor.cyverse.org/" target="_blank" rel="noopener" title="harbor.cyverse.org" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M349.9 236.3h-66.1v-59.4h66.1v59.4zm0-204.3h-66.1v60.7h66.1V32zm78.2 144.8H362v59.4h66.1v-59.4zm-156.3-72.1h-66.1v60.1h66.1v-60.1zm78.1 0h-66.1v60.1h66.1v-60.1zm276.8 100c-14.4-9.7-47.6-13.2-73.1-8.4-3.3-24-16.7-44.9-41.1-63.7l-14-9.3-9.3 14c-18.4 27.8-23.4 73.6-3.7 103.8-8.7 4.7-25.8 11.1-48.4 10.7H2.4c-8.7 50.8 5.8 116.8 44 162.1 37.1 43.9 92.7 66.2 165.4 66.2 157.4 0 273.9-72.5 328.4-204.2 21.4.4 67.6.1 91.3-45.2 1.5-2.5 6.6-13.2 8.5-17.1l-13.3-8.9zm-511.1-27.9h-66v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm-78.1-72.1h-66.1v60.1h66.1v-60.1z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.youtube.com/c/CyverseOrgProject" target="_blank" rel="noopener" title="www.youtube.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.aecac24b.min.js"></script>
+      
+    
+  </body>
+</html>
